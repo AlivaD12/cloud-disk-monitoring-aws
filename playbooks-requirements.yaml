@@ -1,0 +1,9 @@
+---
+# Ansible Galaxy role dependencies
+# Install with: ansible-galaxy install -r requirements.yml
+
+- name: amazon.aws
+  version: 6.0.1
+
+- name: community.aws
+  version: 7.0.0
