@@ -1,0 +1,25 @@
+---
+- name: Collect and Report Disk Metrics from EC2 Instances
+  hosts: all
+  gather_facts: no  # We don't need Ansible facts, we're using SSM
+  connection: aws_ssm # This is the key! Uses SSM, not SSH.
+
+  tasks:
+    - name: Execute disk usage command on instances
+      aws_ssm_send_command:
+        command: "df -h --output=source,target,size,used,avail,pcent"
+        instance_ids: "{{ ansible_host }}"
+      register: ssm_command
+
+    - name: Get command output
+      aws_sm_get_command_invocation:
+        command_id: "{{ ssm_command.command.command_id }}"
+        instance_id: "{{ ansible_host }}"
+      register: command_output
+      until: command_output.status != "InProgress"
+      retries: 12
+      delay: 5
+
+    - name: Debug output (In a real scenario, we would parse this and send to CloudWatch)
+      debug:
+        msg: "Disk usage on {{ inventory_hostname }}: {{ command_output.standard_output_content }}"
