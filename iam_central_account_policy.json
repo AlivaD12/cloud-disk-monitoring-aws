@@ -1,0 +1,14 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowAssumeRoleInSpokeAccounts",
+      "Effect": "Allow",
+      "Action": "sts:AssumeRole",
+      "Resource": [
+        "arn:aws:iam::SPOKE-ACCOUNT-1-ID:role/DiskMonitoringCrossAccountRole",
+        "arn:aws:iam::SPOKE-ACCOUNT-2-ID:role/DiskMonitoringCrossAccountRole"
+      ]
+    }
+  ]
+}
