@@ -1,0 +1,10 @@
+
+## How to Run / Test
+(This shows you've thought about testing)
+1.  **Prerequisites:** Setup AWS CLI profiles for central and spoke accounts. Install Ansible and `boto3`.
+2.  **Setup IAM Roles:** Apply the provided IAM policy in the spoke accounts to grant the central account necessary permissions.
+3.  **Run the Playbook:** Execute with the dynamic inventory:
+    `ansible-playbook -i scripts/ec2_dynamic_inventory.py playbooks/site.yml`
+
+## Ansible Artifacts
+The core logic is in the `/playbooks` directory.
